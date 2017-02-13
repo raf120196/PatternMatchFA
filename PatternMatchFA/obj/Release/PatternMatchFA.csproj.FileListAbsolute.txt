@@ -1,0 +1,9 @@
+C:\Users\renat\documents\visual studio 2015\Projects\PatternMatchFA\PatternMatchFA\bin\Release\PatternMatchFA.exe.config
+C:\Users\renat\documents\visual studio 2015\Projects\PatternMatchFA\PatternMatchFA\bin\Release\PatternMatchFA.exe
+C:\Users\renat\documents\visual studio 2015\Projects\PatternMatchFA\PatternMatchFA\bin\Release\PatternMatchFA.pdb
+C:\Users\renat\documents\visual studio 2015\Projects\PatternMatchFA\PatternMatchFA\obj\Release\PatternMatchFA.ForLog.resources
+C:\Users\renat\documents\visual studio 2015\Projects\PatternMatchFA\PatternMatchFA\obj\Release\PatternMatchFA.RegularExpressions.resources
+C:\Users\renat\documents\visual studio 2015\Projects\PatternMatchFA\PatternMatchFA\obj\Release\PatternMatchFA.csproj.GenerateResource.Cache
+C:\Users\renat\documents\visual studio 2015\Projects\PatternMatchFA\PatternMatchFA\obj\Release\PatternMatchFA.exe
+C:\Users\renat\documents\visual studio 2015\Projects\PatternMatchFA\PatternMatchFA\obj\Release\PatternMatchFA.pdb
+C:\Users\renat\documents\visual studio 2015\Projects\PatternMatchFA\PatternMatchFA\obj\Release\PatternMatchFA.csprojResolveAssemblyReference.cache

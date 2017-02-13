@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="Info" targetNamespace="http://tempuri.org/Info.xsd" xmlns:mstns="http://tempuri.org/Info.xsd" xmlns="http://tempuri.org/Info.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
+  <xs:annotation>
+    <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+        <Connections />
+        <Tables />
+        <Sources />
+      </DataSource>
+    </xs:appinfo>
+  </xs:annotation>
+  <xs:element name="Info" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="Info" msprop:Generator_UserDSName="Info">
+    <xs:complexType>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="Set" msprop:Generator_TableClassName="SetDataTable" msprop:Generator_TableVarName="tableSet" msprop:Generator_RowChangedName="SetRowChanged" msprop:Generator_TablePropName="Set" msprop:Generator_RowDeletingName="SetRowDeleting" msprop:Generator_RowChangingName="SetRowChanging" msprop:Generator_RowEvHandlerName="SetRowChangeEventHandler" msprop:Generator_RowDeletedName="SetRowDeleted" msprop:Generator_RowClassName="SetRow" msprop:Generator_UserTableName="Set" msprop:Generator_RowEvArgName="SetRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Номер" msprop:Generator_ColumnVarNameInTable="columnНомер" msprop:Generator_ColumnPropNameInRow="Номер" msprop:Generator_ColumnPropNameInTable="НомерColumn" msprop:Generator_UserColumnName="Номер" type="xs:int" minOccurs="0" />
+              <xs:element name="Найденный_x0020_образ" msprop:Generator_ColumnVarNameInTable="columnНайденный_образ" msprop:Generator_ColumnPropNameInRow="Найденный_образ" msprop:Generator_ColumnPropNameInTable="Найденный_образColumn" msprop:Generator_UserColumnName="Найденный образ" type="xs:string" minOccurs="0" />
+              <xs:element name="Начальная_x0020_позиция" msprop:Generator_ColumnVarNameInTable="columnНачальная_позиция" msprop:Generator_ColumnPropNameInRow="Начальная_позиция" msprop:Generator_ColumnPropNameInTable="Начальная_позицияColumn" msprop:Generator_UserColumnName="Начальная позиция" type="xs:int" minOccurs="0" />
+              <xs:element name="Конечная_x0020_позиция" msprop:Generator_ColumnVarNameInTable="columnКонечная_позиция" msprop:Generator_ColumnPropNameInRow="Конечная_позиция" msprop:Generator_ColumnPropNameInTable="Конечная_позицияColumn" msprop:Generator_UserColumnName="Конечная позиция" type="xs:int" minOccurs="0" />
+              <xs:element name="Длина" msprop:Generator_ColumnVarNameInTable="columnДлина" msprop:Generator_ColumnPropNameInRow="Длина" msprop:Generator_ColumnPropNameInTable="ДлинаColumn" msprop:Generator_UserColumnName="Длина" type="xs:int" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
