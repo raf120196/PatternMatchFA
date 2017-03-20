@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
 
@@ -16,6 +17,7 @@ namespace PatternMatchFA
         private bool isGreedy = false;
         private StateOfFA initialState = null;
         private Set setOfInputSymbols = new Set();
+        private Relations myRelations = new Relations();
 
         private string PostfixNotation(string pattern)
         {
@@ -136,19 +138,26 @@ namespace PatternMatchFA
             lineLen = GetSerializedFsa(stateStartNfa, log);
             log.AppendLine();
 
-            StateOfFA.ResetCounter();
-            StateOfFA stateStartDfa = NFAtoDFA(stateStartNfa);
-            log.AppendLine();
-            log.AppendLine("Таблица переходов ДКА:");
-            lineLen = GetSerializedFsa(stateStartDfa, log);
-            log.AppendLine();
+            if (!IsHemigroup)
+            {
+                StateOfFA.ResetCounter();
+                StateOfFA stateStartDfa = NFAtoDFA(stateStartNfa);
+                log.AppendLine();
+                log.AppendLine("Таблица переходов ДКА:");
+                lineLen = GetSerializedFsa(stateStartDfa, log);
+                log.AppendLine();
 
-            StateOfFA stateStartDfaM = Minimization(stateStartDfa);
-            initialState = stateStartDfaM;
-            log.AppendLine();
-            log.AppendLine("Таблица переходов минимального ДКА:");
-            lineLen = GetSerializedFsa(stateStartDfaM, log);
-            log.AppendLine();
+                StateOfFA stateStartDfaM = Minimization(stateStartDfa);
+                initialState = stateStartDfaM;
+                log.AppendLine();
+                log.AppendLine("Таблица переходов минимального ДКА:");
+                lineLen = GetSerializedFsa(stateStartDfaM, log);
+                log.AppendLine();
+            }
+            else
+            {
+                initialState = stateStartNfa;
+            }
 
             return TypeError.ERROR_NO;
         }
@@ -249,6 +258,18 @@ namespace PatternMatchFA
             }
         }
 
+        public bool IsHemigroup
+        {
+            get
+            {
+                return IsHemigroup;
+            }
+            set
+            {
+                isGreedy = value;
+            }
+        }
+
         public int GetLastErrorLength()
         {
             return lastErrLen;
@@ -269,9 +290,9 @@ namespace PatternMatchFA
             return (initialState != null);
         }
 
-        private StateOfFA CreateNFA(string postfixNotation) // построение конечного недетерминированного автомата
+        private StateOfFA CreateNFA(string postfixNotation) // построение НКА
         {
-            Stack stackNFA = new Stack();
+            Stack stackNFA = new Stack();            
             Transition t = null;
             Transition t1 = null;
             Transition t2 = null;
@@ -289,7 +310,7 @@ namespace PatternMatchFA
                 if (needEscape == true)
                 {
                     t3 = new Transition();
-                    t3.GetStartState().AddTransition(c.ToString(), t3.GetFinalState());
+                    t3.GetStartState().AddTransition(c.ToString(), t3.GetFinalState());             
 
                     stackNFA.Push(t3);
 
@@ -309,6 +330,8 @@ namespace PatternMatchFA
                         t3.GetStartState().AddTransition(MetaSymbols.EPSILON, t1.GetStartState());
                         t3.GetStartState().AddTransition(MetaSymbols.EPSILON, t3.GetFinalState());
 
+                        myRelations.AddToAlphabet(MetaSymbols.EPSILON);
+
                         stackNFA.Push(t3);
                         break;
 
@@ -324,6 +347,8 @@ namespace PatternMatchFA
                         t3.GetStartState().AddTransition(MetaSymbols.EPSILON, t1.GetStartState());
                         t3.GetStartState().AddTransition(MetaSymbols.EPSILON, t2.GetStartState());
 
+                        myRelations.AddToAlphabet(MetaSymbols.EPSILON);
+
                         stackNFA.Push(t3);
                         break;
 
@@ -332,6 +357,8 @@ namespace PatternMatchFA
                         t1 = (Transition)stackNFA.Pop();
 
                         t1.GetFinalState().AddTransition(MetaSymbols.EPSILON, t2.GetStartState());
+
+                        myRelations.AddToAlphabet(MetaSymbols.EPSILON);
 
                         t3 = new Transition(t1.GetStartState(), t2.GetFinalState());
                         stackNFA.Push(t3);
@@ -346,6 +373,8 @@ namespace PatternMatchFA
                         t3.GetFinalState().AddTransition(MetaSymbols.EPSILON, t1.GetStartState());
                         t1.GetFinalState().AddTransition(MetaSymbols.EPSILON, t3.GetFinalState());
 
+                        myRelations.AddToAlphabet(MetaSymbols.EPSILON);
+
                         stackNFA.Push(t3);
                         break;
 
@@ -357,12 +386,18 @@ namespace PatternMatchFA
                         t3.GetStartState().AddTransition(MetaSymbols.EPSILON, t3.GetFinalState());
                         t1.GetFinalState().AddTransition(MetaSymbols.EPSILON, t3.GetFinalState());
 
+                        myRelations.AddToAlphabet(MetaSymbols.EPSILON);
+
                         stackNFA.Push(t3);
                         break;
 
                     case MetaSymbols.ANY_ONE_CHAR: // один произвольный символ _
                         t3 = new Transition();
+
                         t3.GetStartState().AddTransition(MetaSymbols.ANY_ONE_CHAR_TRANS, t3.GetFinalState());
+
+                        myRelations.AddToAlphabet(MetaSymbols.ANY_ONE_CHAR_TRANS);
+
                         stackNFA.Push(t3);
                         break;
 
@@ -373,8 +408,13 @@ namespace PatternMatchFA
                         d.GetStartState().AddTransition(MetaSymbols.DUMMY, d.GetFinalState());
                         t1.GetFinalState().AddTransition(MetaSymbols.EPSILON, d.GetStartState());
 
+                        myRelations.AddToAlphabet(MetaSymbols.DUMMY);
+                        myRelations.AddToAlphabet(MetaSymbols.EPSILON);
+
                         Transition exprAny = new Transition();
                         exprAny.GetStartState().AddTransition(MetaSymbols.ANY_ONE_CHAR_TRANS, exprAny.GetFinalState());
+
+                        myRelations.AddToAlphabet(MetaSymbols.ANY_ONE_CHAR_TRANS);
 
                         t3 = new Transition();
                         t3.GetStartState().AddTransition(MetaSymbols.EPSILON, t1.GetStartState());
@@ -390,8 +430,31 @@ namespace PatternMatchFA
                         t3 = new Transition();
                         t3.GetStartState().AddTransition(c.ToString(), t3.GetFinalState());
 
+                        myRelations.AddToAlphabet(c.ToString());
+
                         stackNFA.Push(t3);
                         break;
+                }
+
+                if (t != null)
+                {
+                    myRelations.AddToStates(t.GetStartState());
+                    myRelations.AddToStates(t.GetFinalState());
+                }
+                if (t1 != null)
+                {
+                    myRelations.AddToStates(t1.GetStartState());
+                    myRelations.AddToStates(t1.GetFinalState());
+                }
+                if (t2 != null)
+                {
+                    myRelations.AddToStates(t2.GetStartState());
+                    myRelations.AddToStates(t2.GetFinalState());
+                }
+                if (t3 != null)
+                {
+                    myRelations.AddToStates(t3.GetStartState());
+                    myRelations.AddToStates(t3.GetFinalState());
                 }
             }
 
@@ -399,6 +462,7 @@ namespace PatternMatchFA
             t = (Transition)stackNFA.Pop();
             t.GetFinalState().TerminalState = true;
 
+            myRelations.AllTransitions();
             return t.GetStartState();
         }
 
@@ -699,6 +763,7 @@ namespace PatternMatchFA
             GetAllStateAndInput(stateStart, setAllState, setAllInput);
             return GetSerializedFsa(stateStart, setAllState, setAllInput, sb);
         }
+
         static internal int GetSerializedFsa(StateOfFA stateStart, Set setAllState, Set setAllSymbols, StringBuilder sb)
         {
             int nLineLength = 0;
@@ -849,6 +914,83 @@ namespace PatternMatchFA
             if (!isTerminal)
             {
                 if (!stateStart.TerminalState)
+                {
+                    return false;
+                }
+                else
+                {
+                    foundStartPos = startPos;
+                    foundEndPos = foundStartPos - 1;
+                    return true;
+                }
+            }
+
+            return true;
+        }
+
+        public bool FindMatchWithHemigroup(string text, int startPos, int endPos, ref int foundStartPos, ref int foundEndPos)
+        {
+            if (initialState == null || startPos < 0)
+            {
+                return false;
+            }
+
+            foundStartPos = -1;
+            foundEndPos = -1;
+
+            bool isTerminal = false;
+            int idx = startPos;
+            int lastPos = endPos;
+
+            myRelations.init(initialState);
+
+            while (idx <= lastPos)
+            {
+                List<Pair<StateOfFA, StateOfFA>> currentRelation = myRelations.Multiply(myRelations.delta_w, text[idx].ToString());
+                
+                if (currentRelation != null) // если есть такое состояние
+                {
+                    if (foundStartPos == -1)
+                    {
+                        foundStartPos = idx; // отсюда начинаем смотреть
+                    }
+
+                    if (myRelations.HaveTerminalState(myRelations.GetSecondProjection(currentRelation))) // если перешли в заключительное
+                    {
+                        if (!matchEnd || idx == lastPos)
+                        {
+                            isTerminal = true;
+                            foundEndPos = idx;
+                            if (!isGreedy)
+                            {
+                                break;
+                            }
+                        }
+                    }
+
+                    myRelations.delta_w = currentRelation;
+                    idx++;
+                }
+                else
+                {
+                    if (!matchStart && !isTerminal) // сбросим показатели
+                    {
+                        idx = ((foundStartPos != -1) ? (foundStartPos + 1) : (idx + 1));
+                        foundStartPos = -1;
+                        foundEndPos = -1;
+                        myRelations.delta_w = new List<Pair<StateOfFA, StateOfFA>>();
+                        myRelations.init(initialState);
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+            }
+
+            if (!isTerminal)
+            {
+                if (!initialState.TerminalState)
                 {
                     return false;
                 }

@@ -12,6 +12,7 @@
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -24,7 +25,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -50,6 +50,9 @@
   <PropertyGroup>
     <StartupObject />
   </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -63,65 +66,75 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CheckerRegex.cs" />
-    <Compile Include="ForLog.cs">
+    <Compile Include="RegEx\CheckerRegex.cs" />
+    <Compile Include="User Interface\ForLog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ForLog.Designer.cs">
+    <Compile Include="User Interface\ForLog.Designer.cs">
       <DependentUpon>ForLog.cs</DependentUpon>
     </Compile>
-    <Compile Include="Info.cs">
+    <Compile Include="Data Base\Info.cs">
       <DependentUpon>Info.xsd</DependentUpon>
     </Compile>
-    <Compile Include="Info.Designer.cs">
+    <Compile Include="Data Base\Info.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Info.xsd</DependentUpon>
     </Compile>
-    <Compile Include="Map.cs" />
-    <Compile Include="MetaSymbols.cs" />
-    <Compile Include="NFAtoDFA.cs" />
+    <Compile Include="Data Structures\Map.cs" />
+    <Compile Include="Data Structures\Pair.cs" />
+    <Compile Include="Hemigroup\Relations.cs" />
+    <Compile Include="RegEx\MetaSymbols.cs" />
+    <Compile Include="Automata\NFAtoDFA.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RegExpr.cs" />
-    <Compile Include="RegularExpressions.cs">
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="RegEx\RegExpr.cs" />
+    <Compile Include="User Interface\RegularExpressions.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="RegularExpressions.Designer.cs">
+    <Compile Include="User Interface\RegularExpressions.Designer.cs">
       <DependentUpon>RegularExpressions.cs</DependentUpon>
     </Compile>
-    <Compile Include="Set.cs" />
-    <Compile Include="StateOfFA.cs" />
-    <Compile Include="Transition.cs" />
-    <Compile Include="TypeError.cs" />
+    <Compile Include="Data Structures\Set.cs" />
+    <Compile Include="Automata\StateOfFA.cs" />
+    <Compile Include="Automata\Transition.cs" />
+    <Compile Include="RegEx\TypeError.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="ClassDiagram1.cd" />
-    <None Include="Info.xsc">
+    <None Include="Data Base\Info.xsc">
       <DependentUpon>Info.xsd</DependentUpon>
     </None>
-    <None Include="Info.xsd">
+    <None Include="Data Base\Info.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>Info.Designer.cs</LastGenOutput>
     </None>
-    <None Include="Info.xss">
+    <None Include="Data Base\Info.xss">
       <DependentUpon>Info.xsd</DependentUpon>
+    </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="ForLog.resx">
+    <EmbeddedResource Include="User Interface\ForLog.resx">
       <DependentUpon>ForLog.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RegularExpressions.resx">
+    <EmbeddedResource Include="User Interface\RegularExpressions.resx">
       <DependentUpon>RegularExpressions.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
       <Visible>False</Visible>
-      <ProductName>Microsoft .NET Framework 4.5.2 %28x86 and x64%29</ProductName>
+      <ProductName>Microsoft .NET Framework 4.5.2 %28x86 и x64%29</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
@@ -130,6 +143,7 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

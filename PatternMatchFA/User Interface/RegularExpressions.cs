@@ -225,5 +225,10 @@ namespace PatternMatchFA
             ForLog secondform = new ForLog(sb.ToString());
             secondform.ShowDialog();
         }
+
+        private void checkBox2_CheckedChanged(object sender, EventArgs e)
+        {
+            regex.IsHemigroup = checkBox1.Checked;
+        }
     }
 }

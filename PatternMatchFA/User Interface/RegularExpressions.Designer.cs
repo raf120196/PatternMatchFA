@@ -49,6 +49,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.log = new System.Windows.Forms.Button();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.info1BindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.info1)).BeginInit();
@@ -84,7 +85,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 52);
+            this.label2.Location = new System.Drawing.Point(12, 87);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(97, 13);
             this.label2.TabIndex = 3;
@@ -92,7 +93,7 @@
             // 
             // text
             // 
-            this.text.Location = new System.Drawing.Point(15, 68);
+            this.text.Location = new System.Drawing.Point(15, 107);
             this.text.Multiline = true;
             this.text.Name = "text";
             this.text.ScrollBars = System.Windows.Forms.ScrollBars.Both;
@@ -104,7 +105,7 @@
             // 
             // findfirst
             // 
-            this.findfirst.Location = new System.Drawing.Point(696, 68);
+            this.findfirst.Location = new System.Drawing.Point(696, 107);
             this.findfirst.Name = "findfirst";
             this.findfirst.Size = new System.Drawing.Size(96, 23);
             this.findfirst.TabIndex = 5;
@@ -114,7 +115,7 @@
             // 
             // findnext
             // 
-            this.findnext.Location = new System.Drawing.Point(697, 108);
+            this.findnext.Location = new System.Drawing.Point(697, 147);
             this.findnext.Name = "findnext";
             this.findnext.Size = new System.Drawing.Size(95, 23);
             this.findnext.TabIndex = 6;
@@ -124,7 +125,7 @@
             // 
             // findall
             // 
-            this.findall.Location = new System.Drawing.Point(697, 151);
+            this.findall.Location = new System.Drawing.Point(697, 190);
             this.findall.Name = "findall";
             this.findall.Size = new System.Drawing.Size(95, 23);
             this.findall.TabIndex = 7;
@@ -146,7 +147,7 @@
             this.dataGridView1.DataMember = "Set";
             this.dataGridView1.DataSource = this.info1BindingSource;
             this.dataGridView1.GridColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.dataGridView1.Location = new System.Drawing.Point(15, 316);
+            this.dataGridView1.Location = new System.Drawing.Point(15, 351);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(662, 150);
             this.dataGridView1.TabIndex = 8;
@@ -195,7 +196,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(12, 300);
+            this.label3.Location = new System.Drawing.Point(12, 332);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(67, 13);
             this.label3.TabIndex = 9;
@@ -204,7 +205,7 @@
             // checkBox1
             // 
             this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(499, 272);
+            this.checkBox1.Location = new System.Drawing.Point(499, 311);
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(178, 17);
             this.checkBox1.TabIndex = 10;
@@ -214,7 +215,7 @@
             // 
             // log
             // 
-            this.log.Location = new System.Drawing.Point(697, 216);
+            this.log.Location = new System.Drawing.Point(697, 255);
             this.log.Name = "log";
             this.log.Size = new System.Drawing.Size(96, 35);
             this.log.TabIndex = 11;
@@ -222,11 +223,23 @@
             this.log.UseVisualStyleBackColor = true;
             this.log.Click += new System.EventHandler(this.log_Click);
             // 
+            // checkBox2
+            // 
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Location = new System.Drawing.Point(15, 48);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(224, 17);
+            this.checkBox2.TabIndex = 12;
+            this.checkBox2.Text = "Поиск с помощью конечных полугрупп";
+            this.checkBox2.UseVisualStyleBackColor = true;
+            this.checkBox2.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
+            // 
             // RegularExpressions
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(797, 478);
+            this.ClientSize = new System.Drawing.Size(797, 507);
+            this.Controls.Add(this.checkBox2);
             this.Controls.Add(this.log);
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.label3);
@@ -271,5 +284,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.Button log;
+        private System.Windows.Forms.CheckBox checkBox2;
     }
 }

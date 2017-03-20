@@ -21,9 +21,9 @@ namespace PatternMatchFA
             }
         }
 
-        public void AddTransition(string from, StateOfFA to)
+        public void AddTransition(string label, StateOfFA to)
         {
-            transitions.Add(from, to);
+            transitions.Add(label, to);
         }
 
         public StateOfFA[] GetTransitions(string s)
@@ -37,11 +37,11 @@ namespace PatternMatchFA
             return null;
         }
 
-        public StateOfFA GetTransition(string state)
+        public StateOfFA GetTransition(string s)
         {
-            if (transitions.Contains(state))
+            if (transitions.Contains(s))
             {
-                Set set = (Set)transitions[state];
+                Set set = (Set)transitions[s];
                 return (StateOfFA)set[0];
             }
 
